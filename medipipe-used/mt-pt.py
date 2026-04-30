@@ -5,7 +5,7 @@ from mediapipe.tasks.python import vision
 import time
 import numpy as np
 
-# 1. Definisi Koneksi Jari (Hardcoded)
+# Hard core code hand marker from git 
 HAND_CONNECTIONS = [
     (0, 1), (1, 2), (2, 3), (3, 4),    # Jempol
     (0, 5), (5, 6), (6, 7), (7, 8),    # Telunjuk
@@ -27,7 +27,7 @@ def print_result(result, output_image, timestamp_ms):
     global latest_result
     latest_result = result
 
-# 2. Setup Options
+# Setup Options
 base_options = python.BaseOptions(model_asset_path='hand_landmarker.task')
 options = vision.HandLandmarkerOptions(
     base_options=base_options,
@@ -52,7 +52,7 @@ with vision.HandLandmarker.create_from_options(options) as landmarker:
         timestamp_ms = int(time.time() * 1000)
         landmarker.detect_async(mp_image, timestamp_ms)
 
-        # 3. Gambar Manual Landmark jika ada hasil
+        # output landmark results
         if latest_result is not None and latest_result.hand_landmarks:
             for hand_landmarks in latest_result.hand_landmarks:
                 # Ambil koordinat pixel
